@@ -8,14 +8,19 @@ r: window 右邊的 index
 
 def binarySearch(nums, target, l, r):
     
-	m = (l + r) // 2 
+    m = (l + r) // 2 
     print("Now l: %d, Now r: %d, Now m: %d" % (l, r, m))
     
     if l > r: ## 找不到目標的情況下, 最後會因為l, r相等, 再遞迴一次(m+1, r) 之後, l會大於r, 把這個條件作為終止條件
         print("Target is not in nums array...")
         return
     
-    if target > nums[m]:  ## 當目標比中間值大, ex: 目標:50, 目前中間值為20, 右邊的序列: [20][23]..[100] @ 所以l傳入 m+1, 也就是[23]的位置, 右邊r不動
+    '''
+    當目標比中間值大, ex: 目標:50, 目前中間值為20, 右邊的序列: [20][23]..[100] 
+    所以l傳入 m+1, 也就是[23]的位置, 右邊r不動, 反之, r傳入 m-1, 左邊l不動
+    '''
+	
+    if target > nums[m]:  
         return binarySearch(nums, target, m+1, r) ## 要加return, 把遞迴的最終結果一層層傳回來!
     elif target < nums[m]:
         return binarySearch(nums, target, l, m-1)
