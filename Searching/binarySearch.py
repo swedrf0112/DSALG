@@ -6,12 +6,35 @@ l: window 左邊的 index
 r: window 右邊的 index
 '''
 
+## Method 1: Use while loop
+l = 0
+r = len(nums) - 1 
+while l <= r: ## 找不到目標的情況下, 最後會因為l, r相等, 再遞迴一次(m+1, r)或(l, m-1) 之後, l會大於r, 把這個條件作為終止條件
+    m = (l + r) // 2
+	
+	'''
+    當目標比中間值大, ex: 目標:50, 目前中間值為20, 右邊的序列: [20][23]..[100] 
+    所以l = m+1, 也就是[23]的位置, 右邊r不動, 反之, r傳入 m-1, 左邊l不動
+    '''
+    
+	if target > nums[m]:
+		l = m + 1
+    elif target < nums[m]: 
+        r = m - 1
+    else:
+        print("At index %d find target %d" % (m, nums[m]))
+        break
+
+print("Target is not in nums array...")
+
+
+## Method 2: Use recursion
 def binarySearch(nums, target, l, r):
     
     m = (l + r) // 2 
     print("Now l: %d, Now r: %d, Now m: %d" % (l, r, m))
     
-    if l > r: ## 找不到目標的情況下, 最後會因為l, r相等, 再遞迴一次(m+1, r) 之後, l會大於r, 把這個條件作為終止條件
+    if l > r: ## 找不到目標的情況下, 最後會因為l, r相等, 再遞迴一次(m+1, r)或(l, m-1) 之後, l會大於r, 把這個條件作為終止條件
         print("Target is not in nums array...")
         return
     
